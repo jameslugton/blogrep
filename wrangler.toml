@@ -4,5 +4,8 @@ compatibility_date = "2024-04-01"
 # Used only when running `wrangler pages deploy` locally/CI.
 pages_build_output_dir = "out"
 
+[build]
+command = "npm run build"
+
 [assets]
 directory = "out"
