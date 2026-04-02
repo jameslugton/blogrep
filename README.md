@@ -87,6 +87,27 @@ Run:
 npm run import:wp -- https://your-wordpress-site.com
 ```
 
+If you do not want to enter credentials in terminal, use a WordPress export XML file instead.
+
+1. In WordPress admin: `Tools -> Export -> Posts` and download the `.xml` file.
+2. Run:
+
+```bash
+npm run import:wp:xml -- ./wordpress-export.xml
+```
+
+This imports published posts into `src/content/posts.json` without API credentials.
+
+If your WordPress API is protected by Cloudflare/WAF or private access, use an application password:
+
+```bash
+WP_USERNAME="your-wp-user" WP_APP_PASSWORD="xxxx xxxx xxxx xxxx xxxx xxxx" npm run import:wp -- https://your-wordpress-site.com
+```
+
+If you receive 403 or a Cloudflare challenge page, you need to allow API access to:
+
+- `/wp-json/wp/v2/posts`
+
 After import, rebuild and redeploy:
 
 ```bash

@@ -12,6 +12,22 @@ if (!wpBaseUrl) {
 
 const normalizedBase = wpBaseUrl.replace(/\/$/, '')
 const endpoint = `${normalizedBase}/wp-json/wp/v2/posts`
+const wpUsername = process.env.WP_USERNAME
+const wpAppPassword = process.env.WP_APP_PASSWORD
+
+function buildHeaders() {
+  const headers = {
+    Accept: 'application/json',
+    'User-Agent': 'blogrep-wordpress-importer/1.0 (+https://blogrep)',
+  }
+
+  if (wpUsername && wpAppPassword) {
+    const auth = Buffer.from(`${wpUsername}:${wpAppPassword}`).toString('base64')
+    headers.Authorization = `Basic ${auth}`
+  }
+
+  return headers
+}
 
 function decodeHtmlEntities(input) {
   return input
@@ -51,9 +67,23 @@ function calculateReadTime(text) {
 }
 
 async function fetchAllPosts() {
-  const first = await fetch(`${endpoint}?per_page=100&page=1`)
+  const first = await fetch(`${endpoint}?per_page=100&page=1`, {
+    headers: buildHeaders(),
+  })
   if (!first.ok) {
-    throw new Error(`WordPress API request failed: ${first.status} ${first.statusText}`)
+    const body = await first.text()
+    const snippet = body.slice(0, 220).replace(/\s+/g, ' ')
+    const blockedByWaf = /Attention Required|cf-challenge|Just a moment|cloudflare/i.test(body)
+
+    if (blockedByWaf) {
+      throw new Error(
+        `WordPress API is blocked by Cloudflare/WAF (${first.status}). Enable access to /wp-json/wp/v2/posts for this client, or use WP application-password auth via WP_USERNAME and WP_APP_PASSWORD.`,
+      )
+    }
+
+    throw new Error(
+      `WordPress API request failed: ${first.status} ${first.statusText}. Response starts with: ${snippet}`,
+    )
   }
 
   const totalPagesHeader = first.headers.get('x-wp-totalpages')
@@ -62,7 +92,9 @@ async function fetchAllPosts() {
   const all = [...firstData]
 
   for (let page = 2; page <= totalPages; page += 1) {
-    const res = await fetch(`${endpoint}?per_page=100&page=${page}`)
+    const res = await fetch(`${endpoint}?per_page=100&page=${page}`, {
+      headers: buildHeaders(),
+    })
     if (!res.ok) {
       throw new Error(`WordPress API page ${page} failed: ${res.status} ${res.statusText}`)
     }
@@ -88,6 +120,10 @@ function convertPost(wpPost) {
 }
 
 async function run() {
+  if ((wpUsername && !wpAppPassword) || (!wpUsername && wpAppPassword)) {
+    throw new Error('Set both WP_USERNAME and WP_APP_PASSWORD together, or neither.')
+  }
+
   const posts = await fetchAllPosts()
   const publishedPosts = posts
     .filter((post) => post?.status === 'publish')
