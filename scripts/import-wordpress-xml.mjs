@@ -94,7 +94,8 @@ function extractPosts(xmlContent) {
     .filter((item) => nodeText(item?.['wp:post_type']) === 'post')
     .filter((item) => nodeText(item?.['wp:status']) === 'publish')
     .map((item) => {
-      const content = htmlToText(nodeText(item?.['content:encoded']))
+      const contentHtml = nodeText(item?.['content:encoded']).trim()
+      const content = htmlToText(contentHtml)
       const excerpt = htmlToText(nodeText(item?.description)).slice(0, 240)
       const slug = (nodeText(item?.['wp:post_name']) || nodeText(item?.title) || 'post')
         .toLowerCase()
@@ -109,6 +110,7 @@ function extractPosts(xmlContent) {
         date: toIsoDate(nodeText(item?.['wp:post_date_gmt']) || nodeText(item?.pubDate)),
         excerpt,
         content,
+        contentHtml,
         readTime: calculateReadTime(content),
       }
     })

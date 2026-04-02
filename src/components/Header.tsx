@@ -2,23 +2,20 @@
 
 export default function Header() {
   return (
-    <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+    <header className="border-y border-stone-300 bg-stone-100/95 backdrop-blur-sm">
       <div className="container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex flex-col gap-4 py-5 md:flex-row md:items-end md:justify-between">
           <div className="flex items-center gap-4">
-            <a href="/" className="text-2xl font-bold text-gray-900 hover:text-cyan-600 transition-colors">
-              Em—Dash
+            <a href="/" className="text-2xl font-semibold leading-tight text-stone-900 transition-colors hover:text-stone-700">
+              Human-Driven Cybersecurity for Safer Digital Life
             </a>
           </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#blog" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Blog
+          <nav className="flex items-center gap-6 text-sm uppercase tracking-[0.14em] text-stone-600">
+            <a href="/" className="transition-colors hover:text-stone-900">
+              Home
             </a>
-            <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">
-              About
-            </a>
-            <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Contact
+            <a href="/#latest" className="transition-colors hover:text-stone-900">
+              Latest
             </a>
           </nav>
         </div>

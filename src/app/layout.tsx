@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'EmDash — A Modern Blog',
-  description: 'Thoughts on design, development, and digital innovation.',
-  authors: [{ name: 'EmDash', url: 'https://example.com' }],
+  title: 'Human-Driven Cybersecurity for Safer Digital Life',
+  description: 'The Quiet Compromises',
+  authors: [{ name: 'James Lugton', url: 'https://james.lugton.co.uk' }],
   openGraph: {
-    title: 'EmDash — A Modern Blog',
-    description: 'Thoughts on design, development, and digital innovation.',
+    title: 'Human-Driven Cybersecurity for Safer Digital Life',
+    description: 'The Quiet Compromises',
     type: 'website',
-    url: 'https://example.com',
+    url: 'https://james.lugton.co.uk',
   },
 }
 

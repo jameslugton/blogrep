@@ -7,6 +7,7 @@ export interface BlogPost {
   date: string
   excerpt: string
   content: string
+  contentHtml?: string
   readTime: number
 }
 

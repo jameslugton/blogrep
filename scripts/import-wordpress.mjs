@@ -106,7 +106,8 @@ async function fetchAllPosts() {
 }
 
 function convertPost(wpPost) {
-  const content = htmlToText(wpPost?.content?.rendered || '')
+  const contentHtml = (wpPost?.content?.rendered || '').trim()
+  const content = htmlToText(contentHtml)
   const excerpt = htmlToText(wpPost?.excerpt?.rendered || '').slice(0, 240)
 
   return {
@@ -115,6 +116,7 @@ function convertPost(wpPost) {
     date: wpPost?.date || new Date().toISOString(),
     excerpt,
     content,
+    contentHtml,
     readTime: calculateReadTime(content),
   }
 }
