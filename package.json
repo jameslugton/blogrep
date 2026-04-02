@@ -8,6 +8,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
+    "import:wp": "node scripts/import-wordpress.mjs",
     "deploy:pages": "wrangler pages deploy out",
     "deploy:cloudflare": "npm run build && wrangler pages deploy out --project-name blogrep"
   },

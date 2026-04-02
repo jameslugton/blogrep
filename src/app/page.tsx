@@ -1,30 +1,15 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PostCard from '@/components/PostCard'
+import { listPosts } from '@/lib/posts'
 
-const posts = [
-  {
-    title: 'Getting Started with Next.js and Cloudflare',
-    slug: 'nextjs-cloudflare-guide',
-    excerpt: 'Learn how to deploy a modern Next.js application on Cloudflare Pages for lightning-fast performance.',
-    date: '2024-04-01',
-    readTime: 8,
-  },
-  {
-    title: 'The Art of Typography in Web Design',
-    slug: 'typography-web-design',
-    excerpt: 'Explore best practices for choosing and implementing typography that enhances user experience and readability.',
-    date: '2024-03-28',
-    readTime: 6,
-  },
-  {
-    title: 'Building Performant Web Applications',
-    slug: 'performant-web-apps',
-    excerpt: 'Strategies and techniques for optimizing web application performance and improving Core Web Vitals.',
-    date: '2024-03-25',
-    readTime: 10,
-  },
-]
+const posts = listPosts().map((post) => ({
+  title: post.title,
+  slug: post.slug,
+  excerpt: post.excerpt,
+  date: post.date,
+  readTime: post.readTime,
+}))
 
 export default function Home() {
   return (

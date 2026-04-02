@@ -77,6 +77,22 @@ Edit `src/app/layout.tsx` to update site title, description, and Open Graph tags
 
 Edit the `posts` array in `src/app/page.tsx` to add new posts, or modify `src/app/blog/[slug]/page.tsx` to customize post rendering.
 
+### Import from WordPress
+
+This project includes a WordPress importer that pulls published posts from the WP REST API and writes them to `src/content/posts.json`.
+
+Run:
+
+```bash
+npm run import:wp -- https://your-wordpress-site.com
+```
+
+After import, rebuild and redeploy:
+
+```bash
+npm run build
+```
+
 ### Styling
 
 Tailwind CSS is pre-configured. Edit `tailwind.config.ts` to customize colors, fonts, and other design options.

@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Getting Started with Next.js and Cloudflare",
+    "slug": "nextjs-cloudflare-guide",
+    "date": "2024-04-01",
+    "excerpt": "Learn how to deploy a modern Next.js application on Cloudflare Pages for lightning-fast performance.",
+    "content": "Cloudflare Pages offers an excellent hosting solution for modern web applications. When combined with Next.js, you get a powerful, scalable platform for deploying your projects.\n\n## Why Choose Cloudflare Pages?\n\nCloudflare Pages provides:\n- Global edge network for lightning-fast content delivery\n- Zero-configuration deployments\n- Unlimited bandwidth\n- Built-in DDoS protection\n- Seamless Git integration\n\n## Setting Up Your Project\n\nTo get started, ensure your Next.js project is configured for static export.\n\n## Deployment\n\nSimply connect your GitHub repository to Cloudflare Pages, and your site will be deployed automatically on every push to your main branch.",
+    "readTime": 8
+  },
+  {
+    "title": "The Art of Typography in Web Design",
+    "slug": "typography-web-design",
+    "date": "2024-03-28",
+    "excerpt": "Explore best practices for choosing and implementing typography that enhances user experience and readability.",
+    "content": "Typography is one of the most overlooked yet powerful tools in web design. The right typeface and spacing can transform a website from average to exceptional.\n\n## Choosing the Right Typeface\n\nWhen selecting fonts for your website, consider readability, brand alignment, and performance.\n\n## Hierarchy and Spacing\n\nWeb typography is more than just picking a pretty font. It is about creating visual hierarchy that guides the reader through content.\n\n## Modern Font Stacks\n\nConsider modern font stacks that balance aesthetics with performance.",
+    "readTime": 6
+  },
+  {
+    "title": "Building Performant Web Applications",
+    "slug": "performant-web-apps",
+    "date": "2024-03-25",
+    "excerpt": "Strategies and techniques for optimizing web application performance and improving Core Web Vitals.",
+    "content": "Performance is a feature. Users expect fast, responsive web applications, and slow sites lead to lost traffic and engagement.\n\n## Core Web Vitals\n\nGoogle Core Web Vitals are metrics you should optimize for.\n\n## Optimization Strategies\n\nPrioritize code splitting, image optimization, caching, and minification.\n\n## Monitoring Performance\n\nUse Lighthouse, WebPageTest, and real user monitoring to measure and improve performance over time.",
+    "readTime": 10
+  }
+]
