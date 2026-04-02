@@ -8,7 +8,8 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy:pages": "wrangler pages deploy out"
+    "deploy:pages": "wrangler pages deploy out",
+    "deploy:cloudflare": "npm run build && wrangler pages deploy out --project-name blogrep"
   },
   "dependencies": {
     "react": "^18.3.1",
