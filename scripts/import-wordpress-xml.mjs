@@ -58,6 +58,19 @@ function toArray(value) {
   return [value]
 }
 
+function nodeText(value) {
+  if (value === undefined || value === null) {
+    return ''
+  }
+  if (typeof value === 'string') {
+    return value
+  }
+  if (typeof value === 'object' && typeof value.cdata === 'string') {
+    return value.cdata
+  }
+  return String(value)
+}
+
 function toIsoDate(value) {
   const d = new Date(value)
   if (Number.isNaN(d.getTime())) {
@@ -78,12 +91,12 @@ function extractPosts(xmlContent) {
   const items = toArray(doc?.rss?.channel?.item)
 
   return items
-    .filter((item) => item?.['wp:post_type'] === 'post')
-    .filter((item) => item?.['wp:status'] === 'publish')
+    .filter((item) => nodeText(item?.['wp:post_type']) === 'post')
+    .filter((item) => nodeText(item?.['wp:status']) === 'publish')
     .map((item) => {
-      const content = htmlToText(item?.['content:encoded']?.cdata || item?.['content:encoded'] || '')
-      const excerpt = htmlToText(item?.description || '').slice(0, 240)
-      const slug = (item?.['wp:post_name'] || item?.title || 'post')
+      const content = htmlToText(nodeText(item?.['content:encoded']))
+      const excerpt = htmlToText(nodeText(item?.description)).slice(0, 240)
+      const slug = (nodeText(item?.['wp:post_name']) || nodeText(item?.title) || 'post')
         .toLowerCase()
         .replace(/[^a-z0-9\s-]/g, '')
         .trim()
@@ -91,9 +104,9 @@ function extractPosts(xmlContent) {
         .replace(/-+/g, '-')
 
       return {
-        title: decodeHtmlEntities(item?.title || 'Untitled'),
+        title: decodeHtmlEntities(nodeText(item?.title) || 'Untitled'),
         slug: slug || `post-${Math.random().toString(36).slice(2, 10)}`,
-        date: toIsoDate(item?.['wp:post_date_gmt'] || item?.pubDate),
+        date: toIsoDate(nodeText(item?.['wp:post_date_gmt']) || nodeText(item?.pubDate)),
         excerpt,
         content,
         readTime: calculateReadTime(content),
